@@ -214,6 +214,337 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
 </head>
 <body>
 
+<!-- ══════════════ PERSON SELECTOR ══════════════ -->
+<div id="selector-screen">
+  <div class="sel-bg"></div>
+  <div class="sel-dots"></div>
+  <div class="sel-inner">
+    <div class="sel-kicker"><span></span>Colombia 2026<span></span></div>
+    <h1 class="sel-title">¿Quién<em>eres tú?</em></h1>
+    <p class="sel-sub">Selecciona tu nombre para ver tu versión del viaje</p>
+    <div class="sel-grid">
+      <!-- Grupo A -->
+      <div class="sel-group-label">🔵 Grupo A · Salen Oct 3 desde Barranquilla</div>
+      <div class="sel-persons">
+        <button class="pcard" onclick="selectPerson('jose')" data-group="A">
+          <span class="pc-emoji">🧳</span>
+          <span class="pc-name">José</span>
+          <span class="pc-role">BAQ → MDE</span>
+        </button>
+        <button class="pcard" onclick="selectPerson('rosa')" data-group="A">
+          <span class="pc-emoji">🌸</span>
+          <span class="pc-name">Rosa</span>
+          <span class="pc-role">BAQ → MDE</span>
+        </button>
+        <button class="pcard" onclick="selectPerson('cristina')" data-group="A">
+          <span class="pc-emoji">✨</span>
+          <span class="pc-name">Cristina</span>
+          <span class="pc-role">El Copey → SMR → MDE</span>
+        </button>
+        <button class="pcard" onclick="selectPerson('sebas')" data-group="A">
+          <span class="pc-emoji">🎒</span>
+          <span class="pc-name">Sebas</span>
+          <span class="pc-role">El Copey → SMR → MDE</span>
+        </button>
+        <button class="pcard" onclick="selectPerson('lolyr')" data-group="A">
+          <span class="pc-emoji">🌺</span>
+          <span class="pc-name">Loly R</span>
+          <span class="pc-role">El Copey → SMR → MDE</span>
+        </button>
+        <button class="pcard" onclick="selectPerson('hector')" data-group="A">
+          <span class="pc-emoji">🏔️</span>
+          <span class="pc-name">Héctor</span>
+          <span class="pc-role">El Copey → SMR → MDE</span>
+        </button>
+      </div>
+      <!-- Grupo B -->
+      <div class="sel-group-label">🟢 Grupo B · Se unen Oct 5 noche en Medellín</div>
+      <div class="sel-persons">
+        <button class="pcard pcard-B" onclick="selectPerson('lolya')" data-group="B">
+          <span class="pc-emoji">🎶</span>
+          <span class="pc-name">Loly A</span>
+          <span class="pc-role">Grupo B</span>
+        </button>
+        <button class="pcard pcard-B" onclick="selectPerson('richar')" data-group="B">
+          <span class="pc-emoji">🚀</span>
+          <span class="pc-name">Richar</span>
+          <span class="pc-role">Grupo B</span>
+        </button>
+      </div>
+      <!-- Grupo C -->
+      <div class="sel-group-label">🟣 Grupo C · Se unen Oct 9 mañana en Pereira</div>
+      <div class="sel-persons">
+        <button class="pcard pcard-C" onclick="selectPerson('gisela')" data-group="C">
+          <span class="pc-emoji">☕</span>
+          <span class="pc-name">Gisela</span>
+          <span class="pc-role">El Copey → SMR → PEI</span>
+        </button>
+        <button class="pcard pcard-C" onclick="selectPerson('alex')" data-group="C">
+          <span class="pc-emoji">📷</span>
+          <span class="pc-name">Alex</span>
+          <span class="pc-role">El Copey → SMR → PEI</span>
+        </button>
+      </div>
+    </div>
+    <button class="sel-all-btn" onclick="selectPerson('all')">Ver itinerario completo sin filtro</button>
+  </div>
+</div>
+
+<!-- ══════════════ WELCOME BANNER (shown after selecting) ══════════════ -->
+<div id="welcome-banner" class="welcome-banner hidden">
+  <div class="wb-inner">
+    <div class="wb-left">
+      <span class="wb-emoji" id="wb-emoji"></span>
+      <div>
+        <div class="wb-greeting" id="wb-greeting"></div>
+        <div class="wb-msg" id="wb-msg"></div>
+        <span class="wb-origin" id="wb-origin"></span>
+      </div>
+    </div>
+    <button class="wb-change" onclick="resetPerson()">Cambiar persona</button>
+  </div>
+</div>
+
+<style>
+/* ── SELECTOR SCREEN ── */
+#selector-screen{
+  position:fixed;inset:0;z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--dark);overflow-y:auto;
+  padding:40px 20px;
+}
+.sel-bg{
+  position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%,rgba(200,168,75,.13) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 20%,rgba(78,124,74,.10) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 70% at 50% 50%,rgba(155,79,106,.07) 0%,transparent 65%);
+}
+.sel-dots{
+  position:fixed;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(200,168,75,.15) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);
+}
+.sel-inner{
+  position:relative;z-index:2;
+  text-align:center;max-width:680px;width:100%;
+  padding:20px 0 40px;
+}
+.sel-kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;
+}
+.sel-kicker span{display:block;width:28px;height:1px;background:var(--gold);opacity:.6}
+.sel-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,10vw,6rem);
+  font-weight:600;line-height:.9;letter-spacing:-2px;
+  margin-bottom:16px;
+}
+.sel-title em{display:block;font-style:italic;font-weight:300;color:var(--gold);font-size:.75em}
+.sel-sub{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:40px}
+
+.sel-group-label{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin:24px 0 12px;text-align:left;
+  padding-left:4px;
+}
+.sel-persons{
+  display:flex;flex-wrap:wrap;gap:10px;
+  justify-content:flex-start;margin-bottom:4px;
+}
+
+/* person cards */
+.pcard{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:var(--d2);
+  border:1px solid rgba(58,107,138,.2);
+  border-radius:14px;padding:16px 14px;
+  min-width:90px;cursor:pointer;
+  transition:all .25s;font-family:'Outfit',sans-serif;
+}
+.pcard:hover{
+  background:rgba(58,107,138,.15);
+  border-color:#7FBBD4;
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(58,107,138,.2);
+}
+.pcard-B{border-color:rgba(78,124,74,.2)}
+.pcard-B:hover{background:rgba(78,124,74,.15);border-color:#8FC48A;box-shadow:0 8px 24px rgba(78,124,74,.2)}
+.pcard-C{border-color:rgba(155,79,106,.2)}
+.pcard-C:hover{background:rgba(155,79,106,.15);border-color:#C48AA8;box-shadow:0 8px 24px rgba(155,79,106,.2)}
+.pc-emoji{font-size:1.6rem}
+.pc-name{font-size:14px;font-weight:500;color:var(--text)}
+.pc-role{font-size:10px;color:var(--muted);letter-spacing:1px}
+
+.sel-all-btn{
+  margin-top:32px;
+  background:none;border:1px solid rgba(200,168,75,.2);
+  border-radius:100px;padding:10px 24px;
+  font-size:12px;color:var(--muted);
+  font-family:'Outfit',sans-serif;cursor:pointer;
+  transition:all .25s;letter-spacing:1px;
+}
+.sel-all-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── WELCOME BANNER ── */
+.welcome-banner{
+  position:sticky;top:0;z-index:60;
+  background:rgba(10,10,10,.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(200,168,75,.12);
+  padding:12px 24px;
+}
+.welcome-banner.hidden{display:none}
+.wb-inner{
+  max-width:860px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.wb-left{display:flex;align-items:center;gap:12px}
+.wb-emoji{font-size:1.4rem}
+.wb-greeting{font-size:13px;font-weight:500;color:var(--gold)}
+.wb-msg{font-size:11px;color:var(--muted);margin-top:1px}
+.wb-change{
+  background:none;border:1px solid rgba(200,168,75,.2);
+  border-radius:100px;padding:6px 14px;
+  font-size:11px;color:var(--muted);
+  font-family:'Outfit',sans-serif;cursor:pointer;
+  transition:all .2s;white-space:nowrap;flex-shrink:0;
+}
+.wb-change:hover{border-color:var(--gold);color:var(--gold)}
+.wb-origin{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:4px;
+  background:rgba(200,168,75,.07);
+  border:1px solid rgba(200,168,75,.18);
+  border-radius:6px;padding:3px 9px;
+  font-size:10px;color:rgba(200,168,75,.8);
+  letter-spacing:.5px;
+}
+
+/* fade selector out */
+#selector-screen.fade-out{
+  animation:fadeOut .4s ease forwards;
+}
+@keyframes fadeOut{to{opacity:0;pointer-events:none}}
+</style>
+
+<script>
+// ── PERSON DATA ──
+const persons = {
+  jose:    { name:'José',     emoji:'🧳', group:'A', color:'#3A6B8A',
+             greeting:'¡Bienvenido José! 👋',
+             msg:'Sales el 3 de octubre desde Barranquilla. 10 días, 10 personas, un viaje para siempre.',
+             origin:'✈ Sale desde Barranquilla (BAQ → MDE)',
+             firstDay:1 },
+  rosa:    { name:'Rosa',     emoji:'🌸', group:'A', color:'#3A6B8A',
+             greeting:'¡Hola Rosa! 🌸',
+             msg:'Co-organizadora del viaje. Sales el 3 de octubre desde Barranquilla junto a José.',
+             origin:'✈ Sale desde Barranquilla (BAQ → MDE)',
+             firstDay:1 },
+  cristina:{ name:'Cristina', emoji:'✨', group:'A', color:'#3A6B8A',
+             greeting:'¡Bienvenida Cristina! ✨',
+             msg:'Sales desde El Copey en bus hasta Santa Marta, y de ahí vuelo directo a Medellín el 3 de octubre.',
+             origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
+             firstDay:1 },
+  sebas:   { name:'Sebas',    emoji:'🎒', group:'A', color:'#3A6B8A',
+             greeting:'¡Qué más Sebas! 🎒',
+             msg:'Bus desde El Copey a Santa Marta y vuelo a Medellín el 3 de octubre. ¡Arranca el viaje!',
+             origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
+             firstDay:1 },
+  lolyr:   { name:'Loly R',   emoji:'🌺', group:'A', color:'#3A6B8A',
+             greeting:'¡Hola Loly R! 🌺',
+             msg:'Desde El Copey en bus hasta Santa Marta, y vuelo directo a Medellín el 3 de octubre.',
+             origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
+             firstDay:1 },
+  hector:  { name:'Héctor',   emoji:'🏔️', group:'A', color:'#3A6B8A',
+             greeting:'¡Bienvenido Héctor! 🏔️',
+             msg:'Sales desde El Copey, bus a Santa Marta y vuelo a Medellín. ¡Los Nevados te esperan!',
+             origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
+             firstDay:1 },
+  lolya:   { name:'Loly A',   emoji:'🎶', group:'B', color:'#4E7C4A',
+             greeting:'¡Hola Loly A! 🎶',
+             msg:'Te unes al grupo el 5 de octubre en Medellín. De ahí en adelante todo el recorrido juntos.',
+             origin:'✈ Llega a Medellín el 5 de octubre (noche)',
+             firstDay:3 },
+  richar:  { name:'Richar',   emoji:'🚀', group:'B', color:'#4E7C4A',
+             greeting:'¡Qué más Richar! 🚀',
+             msg:'Tu aventura empieza el 5 de octubre en Medellín. ¡Pura Colombia desde ahí!',
+             origin:'✈ Llega a Medellín el 5 de octubre (noche)',
+             firstDay:3 },
+  gisela:  { name:'Gisela',   emoji:'☕', group:'C', color:'#9B4F6A',
+             greeting:'¡Bienvenida Gisela! ☕',
+             msg:'Sales desde El Copey en bus hasta Santa Marta, y vuelo directo a Pereira el 9 de octubre. ¡Eje Cafetero te espera!',
+             origin:'🚌 El Copey → Santa Marta · ✈ SMR → PEI · llega Oct 9',
+             firstDay:7 },
+  alex:    { name:'Alex',     emoji:'📷', group:'C', color:'#9B4F6A',
+             greeting:'¡Hola Alex! 📷',
+             msg:'Bus desde El Copey a Santa Marta y vuelo a Pereira el 9 de octubre. ¡Carga la cámara!',
+             origin:'🚌 El Copey → Santa Marta · ✈ SMR → PEI · llega Oct 9',
+             firstDay:7 },
+  all:     { name:'Todos',    emoji:'🗺️', group:'all', color:'#C8A84B',
+             greeting:'Vista completa del viaje',
+             msg:'Mostrando el itinerario completo de los 10 días para todos los grupos.',
+             origin:'',
+             firstDay:1 }
+};
+
+let activePerson = null;
+
+function selectPerson(key){
+  activePerson = key;
+  const p = persons[key];
+
+  // hide selector with animation
+  const sel = document.getElementById('selector-screen');
+  sel.classList.add('fade-out');
+  setTimeout(()=>{ sel.style.display='none'; },400);
+
+  // show welcome banner
+  const wb = document.getElementById('welcome-banner');
+  wb.classList.remove('hidden');
+  document.getElementById('wb-emoji').textContent = p.emoji;
+  document.getElementById('wb-greeting').textContent = p.greeting;
+  document.getElementById('wb-msg').textContent = p.msg;
+  const originEl = document.getElementById('wb-origin');
+  if(p.origin){
+    originEl.textContent = p.origin;
+    originEl.style.display = 'inline-flex';
+  } else {
+    originEl.style.display = 'none';
+  }
+
+  // apply group filter
+  if(key === 'all'){
+    setFilter('all', 1);
+  } else {
+    setFilter(p.group, p.firstDay);
+  }
+
+  // scroll to top of itinerary
+  document.querySelector('.nights-strip').scrollIntoView({behavior:'smooth'});
+
+  // update hero title color accent
+  document.querySelector('.hero-title em').style.color = p.color;
+}
+
+function resetPerson(){
+  activePerson = null;
+  // show selector again
+  const sel = document.getElementById('selector-screen');
+  sel.style.display = 'flex';
+  sel.classList.remove('fade-out');
+  // hide banner
+  document.getElementById('welcome-banner').classList.add('hidden');
+  // reset filter
+  setFilter('all');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -286,7 +617,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   <div class="ph fi" data-phase="1"><div class="ph-badge ph-1">✈ Fase 1 — Medellín · 3 noches</div></div>
 
   <!-- DÍA 1 -->
-  <div class="day c1 fi" data-groups="A">
+  <div class="day c1 fi" data-groups="A" data-daynum="1">
     <div class="day-left"><div class="day-num">1</div><div class="day-date">Oct 3<br>Sáb</div></div>
     <div class="card">
       <div class="card-title">Llegada & Acuario</div>
@@ -314,7 +645,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 2 -->
-  <div class="day c1 fi" data-groups="A">
+  <div class="day c1 fi" data-groups="A" data-daynum="1">
     <div class="day-left"><div class="day-num">2</div><div class="day-date">Oct 4<br>Dom</div></div>
     <div class="card">
       <div class="card-title">Guatapé & La Piedra del Peñol</div>
@@ -337,7 +668,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 3 -->
-  <div class="day c1 fi" data-groups="A B">
+  <div class="day c1 fi" data-groups="A B" data-daynum="3">
     <div class="day-left"><div class="day-num">3</div><div class="day-date">Oct 5<br>Lun</div></div>
     <div class="card">
       <div class="card-title">City Tour + Llega Grupo B</div>
@@ -372,7 +703,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 4 -->
-  <div class="day c2 fi" data-groups="A B">
+  <div class="day c2 fi" data-groups="A B" data-daynum="4">
     <div class="day-left"><div class="day-num">4</div><div class="day-date">Oct 6<br>Mar</div></div>
     <div class="card">
       <div class="card-title">Jardín — Grupos A & B juntos</div>
@@ -403,7 +734,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 5 -->
-  <div class="day c2 fi" data-groups="A B">
+  <div class="day c2 fi" data-groups="A B" data-daynum="5">
     <div class="day-left"><div class="day-num">5</div><div class="day-date">Oct 7<br>Mié</div></div>
     <div class="card">
       <div class="card-title">Manizales — Base Los Nevados</div>
@@ -429,7 +760,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 6 -->
-  <div class="day c2 fi" data-groups="A B">
+  <div class="day c2 fi" data-groups="A B" data-daynum="6">
     <div class="day-left"><div class="day-num">6</div><div class="day-date">Oct 8<br>Jue</div></div>
     <div class="card">
       <div class="card-title">Los Nevados → Termales → Pereira</div>
@@ -459,7 +790,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   <div class="ph fi" data-phase="3"><div class="ph-badge ph-3">☕ Fase 3 — Eje Cafetero · base Salento</div></div>
 
   <!-- DÍA 7 -->
-  <div class="day c3 fi" data-groups="A B C">
+  <div class="day c3 fi" data-groups="A B C" data-daynum="7">
     <div class="day-left"><div class="day-num">7</div><div class="day-date">Oct 9<br>Vie</div></div>
     <div class="card">
       <div class="card-title">Llega Grupo C · Filandia · Salento</div>
@@ -487,7 +818,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 8 -->
-  <div class="day c3 fi" data-groups="A B C">
+  <div class="day c3 fi" data-groups="A B C" data-daynum="8">
     <div class="day-left"><div class="day-num">8</div><div class="day-date">Oct 10<br>Sáb</div></div>
     <div class="card">
       <div class="card-title">Valle del Cócora — Caminata</div>
@@ -520,7 +851,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 9 -->
-  <div class="day c3 fi" data-groups="A B C">
+  <div class="day c3 fi" data-groups="A B C" data-daynum="9">
     <div class="day-left"><div class="day-num">9</div><div class="day-date">Oct 11<br>Dom</div></div>
     <div class="card">
       <div class="card-title">Parque Nacional del Café — Día completo</div>
@@ -557,7 +888,7 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
   </div>
 
   <!-- DÍA 10 -->
-  <div class="day c4 fi" data-groups="A B C">
+  <div class="day c4 fi" data-groups="A B C" data-daynum="10">
     <div class="day-left"><div class="day-num">10</div><div class="day-date">Oct 12<br>Lun</div></div>
     <div class="card">
       <div class="card-title">Regreso — Barranquilla antes del mediodía ✈</div>
@@ -1018,8 +1349,9 @@ document.querySelectorAll('.fi').forEach(el=>io.observe(el));
 // ── Group filter logic ──
 let activeFilter = 'all';
 
-function setFilter(group){
+function setFilter(group, firstDay){
   activeFilter = group;
+  const minDay = firstDay || 1;
 
   // Update all button sets
   document.querySelectorAll('.gbtn').forEach(b=>{
@@ -1035,7 +1367,7 @@ function setFilter(group){
   const trs  = document.querySelectorAll('.tr[data-groups]');
   const phs  = document.querySelectorAll('.ph[data-phase]');
 
-  if(group === 'all'){
+  if(group === 'all' && minDay === 1){
     days.forEach(d=>d.classList.remove('hidden'));
     trs.forEach(t=>t.classList.remove('hidden'));
     phs.forEach(p=>p.classList.remove('hidden'));
@@ -1043,11 +1375,14 @@ function setFilter(group){
     return;
   }
 
-  // show/hide days
+  // show/hide days — must match group AND daynum >= firstDay
   let anyVisible = false;
   days.forEach(d=>{
-    const groups = d.dataset.groups || '';
-    if(groups.split(' ').includes(group)){
+    const groups  = d.dataset.groups || '';
+    const dayNum  = parseInt(d.dataset.daynum) || 1;
+    const groupOk = group === 'all' || groups.split(' ').includes(group);
+    const dayOk   = dayNum >= minDay;
+    if(groupOk && dayOk){
       d.classList.remove('hidden');
       anyVisible = true;
     } else {
@@ -1055,21 +1390,18 @@ function setFilter(group){
     }
   });
 
-  // show/hide transports — show only if adjacent visible day
+  // show/hide transports
   trs.forEach(t=>{
     const groups = t.dataset.groups || '';
-    if(groups.split(' ').includes(group)){
+    if(group === 'all' || groups.split(' ').includes(group)){
       t.classList.remove('hidden');
     } else {
       t.classList.add('hidden');
     }
   });
 
-  // show/hide phase headers — show if any day in phase is visible
+  // show/hide phase headers
   phs.forEach(ph=>{
-    const phaseNum = ph.dataset.phase;
-    // find phase color class (ph-1, ph-2 etc.)
-    // check if any visible day follows this phase header
     let sibling = ph.nextElementSibling;
     let phaseHasVisibleDay = false;
     while(sibling && !sibling.classList.contains('ph')){
