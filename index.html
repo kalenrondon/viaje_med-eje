@@ -938,244 +938,229 @@ function resetPerson(){
   <div class="map-header fi">
     <p class="ey">Ruta del viaje</p>
     <h3>Colombia — El recorrido en mapa</h3>
-    <p class="map-sub">Toca cada punto para ver los detalles del destino</p>
+    <p class="map-sub" id="map-sub-txt">Toca cada punto para ver los detalles del destino</p>
   </div>
 
-  <div class="map-wrap">
-    <!-- SVG map of Colombia + route -->
-    <svg id="colmap" viewBox="0 0 520 680" xmlns="http://www.w3.org/2000/svg">
-      <!-- Colombia silhouette -->
-      <path class="col-shape" d="
-        M200,18 L215,14 L232,18 L248,12 L268,16 L285,10 L302,18 L318,14
-        L335,22 L348,16 L362,26 L370,20 L385,30 L392,24 L408,36 L415,30
-        L428,44 L434,38 L445,52 L450,60 L458,54 L468,68 L472,80 L480,74
-        L490,88 L494,100 L500,110 L498,124 L504,136 L500,150 L506,162
-        L502,176 L496,188 L490,200 L484,210 L476,218 L468,226 L458,232
-        L448,238 L436,242 L424,246 L412,248 L400,252 L392,260 L386,272
-        L380,284 L376,296 L374,310 L372,324 L368,336 L362,348 L354,358
-        L344,366 L332,372 L318,376 L304,378 L290,380 L276,382 L262,384
-        L248,386 L236,390 L226,396 L218,404 L212,414 L208,426 L206,440
-        L204,454 L202,468 L200,480 L196,492 L190,502 L182,510 L172,516
-        L160,520 L148,522 L136,520 L124,516 L114,508 L106,498 L100,486
-        L96,474 L94,460 L92,446 L90,432 L88,418 L84,404 L78,392 L70,382
-        L62,372 L56,360 L52,348 L50,334 L50,320 L52,306 L56,294 L62,284
-        L70,276 L80,270 L92,266 L104,264 L116,264 L128,266 L138,270
-        L146,276 L152,284 L156,294 L158,306 L158,318 L156,330 L152,340
-        L146,348 L138,354 L130,358 L122,360 L116,358 L110,354 L106,348
-        L104,340 L104,332 L106,324 L110,318 L116,314 L122,312 L128,314
-        L132,318 L134,326 L132,334 L128,340 L122,344 L116,342
-        M160,520 L150,534 L142,546 L136,560 L132,574 L130,590 L132,604
-        L136,616 L142,626 L150,634 L160,640 L172,644 L184,646 L196,644
-        L206,640 L214,634 L220,626 L224,616 L226,604 L224,590 L220,576
-        L214,562 L206,550 L196,540 L184,532 L172,526 L160,520
-        M290,380 L304,388 L318,398 L330,410 L340,424 L348,438 L354,452
-        L358,466 L360,480 L358,494 L354,506 L348,516 L340,524 L330,530
-        L318,534 L306,536 L294,534 L282,530 L272,524 L264,516 L258,506
-        L254,494 L252,480 L252,466 L254,452 L258,438 L264,424 L272,412
-        L282,402 L290,380
-      " fill="none"/>
+  <div class="map-wrap" id="map-wrap">
+    <svg id="colmap" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
 
-      <!-- Simplified Colombia filled shape -->
-      <path class="col-land" d="
-        M255,22 C270,18 290,15 310,20 C330,25 348,18 365,28
-        C382,38 395,30 410,42 C425,54 435,45 448,58
-        C461,71 470,82 478,96 C486,110 492,126 498,142
-        C504,158 500,174 494,188 C488,202 478,214 466,224
-        C454,234 440,242 424,248 C408,254 396,262 388,276
-        C380,290 375,306 373,322 C371,338 367,352 359,364
-        C351,376 338,383 322,385 C306,387 290,386 274,386
-        C258,386 244,390 232,398 C220,406 212,418 208,432
-        C204,446 202,462 200,478 C198,494 193,508 184,518
-        C175,528 162,534 148,534 C134,534 121,528 111,518
-        C101,508 94,494 90,478 C86,462 84,446 80,430
-        C76,414 70,400 62,388 C54,376 48,362 48,346
-        C48,330 54,316 62,304 C70,292 82,284 96,278
-        C110,272 125,270 138,274 C151,278 160,288 164,302
-        C168,316 164,330 156,340 C148,350 136,356 124,354
-        C112,352 102,344 98,332 C94,320 98,306 108,298
-        C118,290 130,290 140,296 C150,302 154,314 150,326
-        C146,338 136,344 126,342
-        L174,528 C180,538 188,548 196,556 C204,564 214,568 224,568
-        C234,568 244,564 252,556 C260,548 265,538 266,526
-        C267,514 264,502 258,492 C252,482 244,474 234,470
-        C224,466 213,466 204,470
-        L300,390 C314,398 326,410 334,424 C342,438 346,454 344,470
-        C342,486 334,500 322,508 C310,516 296,518 282,514
-        C268,510 256,500 250,486 C244,472 246,456 254,444
-        C262,432 274,424 288,422
-      " fill="#1C2A1C" stroke="#2A3D2A" stroke-width="1.5"/>
+      <!-- ══ COLOMBIA SHAPE — realistic simplified ══ -->
+      <path id="col-main" class="col-fill" d="
+        M 195,22
+        C 208,16 224,13 240,14 C 256,15 268,20 280,18
+        C 292,16 302,11 314,13 C 326,15 336,22 346,20
+        C 356,18 364,13 374,16 C 382,19 388,26 390,34
+        C 392,42 388,50 384,56 C 380,62 374,66 368,72
+        C 362,78 356,84 348,90 C 340,96 330,100 322,106
+        C 314,112 308,120 302,128 C 296,136 290,144 284,150
+        C 278,156 270,160 262,164 C 254,168 246,170 238,174
+        C 230,178 224,184 218,190 C 212,196 206,204 200,210
+        C 194,216 188,222 182,230 C 176,238 170,246 166,256
+        C 162,266 160,276 156,286 C 152,296 146,304 140,312
+        C 134,320 126,326 120,334 C 114,342 108,350 104,360
+        C 100,370 98,380 96,390 C 94,400 92,410 88,420
+        C 84,430 78,438 72,446 C 66,454 60,462 56,472
+        C 52,482 50,494 52,504 C 54,514 60,522 68,528
+        C 76,534 86,536 96,534 C 106,532 114,526 118,518
+        C 122,510 120,500 114,494 C 108,488 100,488 94,492
+        C 88,496 86,504 90,510 C 94,516 102,518 108,514
+        M 118,518
+        C 120,528 116,540 108,546 C 100,552 88,550 82,542
+        C 76,534 78,522 86,516 C 94,510 106,512 112,520
+        M 156,286
+        C 164,282 174,282 180,288 C 186,294 186,304 180,310
+        C 174,316 164,314 160,308
+        M 200,210
+        C 210,206 222,208 228,216 C 234,224 232,236 224,240
+        C 216,244 206,240 202,232
+        M 238,174
+        C 248,172 258,176 262,184 C 266,192 262,204 254,206
+        C 246,208 238,202 236,194
+        M 374,16
+        C 382,12 392,14 398,22 C 404,30 402,42 394,46
+        C 386,50 376,46 374,38 C 372,30 376,22 382,18
+        M 384,56
+        C 392,52 402,56 406,64 C 410,72 406,84 398,86
+        C 390,88 382,82 382,74
+      "/>
 
-      <!-- Better Colombia outline -->
-      <path class="col-outline" d="
-        M258,24
-        C272,20 294,16 314,22 C332,27 350,20 368,30
-        C382,40 396,32 412,44 C426,56 436,48 450,62
-        C462,74 472,88 480,104 C488,120 494,138 496,156
-        C498,172 494,188 486,202 C478,216 466,226 452,234
-        C438,242 422,248 406,254 C392,260 382,272 376,288
-        C370,304 368,320 366,336 C362,352 354,366 342,374
-        C328,382 312,384 296,384 C280,384 265,386 252,394
-        C239,402 230,416 226,432 C222,448 220,466 218,482
-        C214,498 207,512 196,522 C185,532 170,538 154,536
-        C138,534 124,526 114,514 C104,502 97,486 93,470
-        C89,454 87,438 83,422 C79,406 72,392 63,380
-        C54,368 48,354 47,338 C46,322 52,308 62,298
-        C72,288 86,282 100,280 C114,278 128,282 138,292
-        C148,302 152,318 148,332 C144,346 132,354 120,352
-        C108,350 100,340 100,328
-        M196,522 C186,534 178,548 172,562 C166,576 164,592 166,608
-        C168,622 174,634 184,642 C194,650 206,652 218,648
-        C230,644 240,636 246,624 C252,612 254,598 250,584
-        C246,570 238,558 228,550 C218,542 206,538 196,522Z
-        M296,384 C308,392 320,404 328,418 C336,432 340,448 338,464
-        C336,480 328,494 316,502 C304,510 290,512 276,508
-        C262,504 250,494 245,480 C240,466 244,450 252,438
-        C260,426 272,418 286,416
-      " fill="none" stroke="#3A5A3A" stroke-width="1" opacity="0.6"/>
+      <!-- Borders subtle overlay -->
+      <path id="col-border" class="col-outline2" d="
+        M 195,22 C 224,12 270,10 314,14 C 348,17 376,14 390,34
+        C 396,44 382,66 358,90 C 334,114 302,128 276,154
+        C 250,180 224,202 198,232 C 172,262 152,296 128,330
+        C 104,364 80,404 64,444 C 48,484 50,514 68,530
+        C 86,546 114,538 122,518 C 130,498 112,480 94,488
+        C 76,496 76,520 90,528
+      "/>
 
-      <!-- Department borders (subtle) -->
-      <g class="dept-lines" stroke="#2E4A2E" stroke-width="0.6" fill="none" opacity="0.5">
-        <line x1="180" y1="300" x2="350" y2="300"/>
-        <line x1="160" y1="380" x2="340" y2="380"/>
-        <line x1="240" y1="200" x2="240" y2="520"/>
-        <line x1="160" y1="250" x2="400" y2="250"/>
+      <!-- ══ ROUTE LINES ══ -->
+      <!-- Group A full route (BAQ/SMR → MDE → Jardín → Manizales → Termales → Pereira → Salento → Regreso) -->
+      <polyline id="route-all" class="route-line" points="
+        244,36
+        248,42
+        220,178
+        264,168
+        220,178
+        186,274
+        200,324
+        212,348
+        204,362
+        206,372
+        204,362
+        206,378
+        208,386
+        206,378
+        200,398
+        208,386
+        244,36
+      "/>
+
+      <!-- Group B route (starts Medellín) -->
+      <polyline id="route-B" class="route-line" style="display:none" points="
+        220,178
+        186,274
+        200,324
+        212,348
+        204,362
+        206,372
+        204,362
+        206,378
+        208,386
+        206,378
+        200,398
+        208,386
+      "/>
+
+      <!-- Group C route (starts Pereira) -->
+      <polyline id="route-C" class="route-line" style="display:none" points="
+        206,372
+        206,378
+        208,386
+        206,378
+        200,398
+        208,386
+      "/>
+
+      <!-- El Copey → SMR connector -->
+      <polyline id="route-smr" class="route-copey" points="258,52 248,42 220,178"/>
+
+      <!-- ══ STOPS ══ -->
+
+      <!-- El Copey -->
+      <g id="stop-copey" class="stop stop-origin" data-id="copey">
+        <circle cx="260" cy="52" r="5" fill="#555" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <text x="270" y="56" class="city-lbl">El Copey</text>
       </g>
 
-      <!-- Dashed route line -->
-      <polyline id="route-line" class="route-line"
-        points="
-          300,68
-          248,208
-          295,196
-          248,208
-          212,308
-          228,368
-          252,398
-          242,412
-          234,418
-          242,412
-          236,424
-          246,436
-          234,418
-          224,448
-          236,424
-          252,398
-          300,68
-        "
-      />
-
-      <!-- Route dots between stops -->
-      <g class="route-dots">
-        <circle cx="300" cy="68" r="2" fill="#C8A84B" opacity="0.4"/>
-        <circle cx="270" cy="120" r="2" fill="#C8A84B" opacity="0.4"/>
-        <circle cx="255" cy="170" r="2" fill="#C8A84B" opacity="0.4"/>
-      </g>
-
-      <!-- STOP MARKERS — each has data for popup -->
       <!-- Barranquilla -->
-      <g class="stop" data-id="0" transform="translate(300,60)">
-        <circle r="16" class="pulse-ring" fill="none" stroke="#aaa" stroke-width="1" opacity="0.3"/>
-        <circle r="11" fill="#555" stroke="#888" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">✈</text>
+      <g id="stop-baq" class="stop stop-origin" data-id="baq">
+        <circle cx="244" cy="34" r="18" class="pulse-r" stroke="#888" style="fill:none"/>
+        <circle cx="244" cy="34" r="10" fill="#666" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <text x="244" y="38" text-anchor="middle" class="mn">✈</text>
+        <text x="258" y="32" class="city-lbl city-lbl-main">Barranquilla</text>
       </g>
 
-      <!-- Medellín -->
-      <g class="stop" data-id="1" transform="translate(247,206)">
-        <circle r="16" class="pulse-ring" fill="none" stroke="#3A6B8A" stroke-width="1" opacity="0.25"/>
-        <circle r="11" fill="#3A6B8A" stroke="#5A9BBF" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">1</text>
+      <!-- Santa Marta -->
+      <g id="stop-smr" class="stop stop-origin" data-id="smr">
+        <circle cx="250" cy="42" r="6" fill="#5A5A8A" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <text x="260" y="46" class="city-lbl">Sta. Marta</text>
       </g>
 
-      <!-- Guatapé -->
-      <g class="stop" data-id="2" transform="translate(294,194)">
-        <circle r="9" fill="#3A6B8A" stroke="#5A9BBF" stroke-width="1.2"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num" style="font-size:8px">2</text>
+      <!-- Medellín — 1 -->
+      <g id="stop-1" class="stop" data-id="1">
+        <circle cx="220" cy="178" r="20" class="pulse-r pr-blue" style="fill:none"/>
+        <circle cx="220" cy="178" r="12" class="mc mc-blue"/>
+        <text x="220" y="182" text-anchor="middle" class="mn">1</text>
+        <text x="235" y="176" class="city-lbl city-lbl-main">Medellín</text>
       </g>
 
-      <!-- Jardín -->
-      <g class="stop" data-id="3" transform="translate(211,307)">
-        <circle r="16" class="pulse-ring" fill="none" stroke="#C8A84B" stroke-width="1" opacity="0.25"/>
-        <circle r="11" fill="#C8A84B" stroke="#E2C96A" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">3</text>
+      <!-- Guatapé excursion — 2 -->
+      <g id="stop-2" class="stop" data-id="2">
+        <line x1="220" y1="178" x2="264" y2="168" class="excursion-line"/>
+        <circle cx="264" cy="168" r="8" class="mc mc-blue-sm"/>
+        <text x="264" y="172" text-anchor="middle" class="mn" style="font-size:8px">2</text>
+        <text x="276" y="165" class="city-lbl">Guatapé</text>
       </g>
 
-      <!-- Manizales -->
-      <g class="stop" data-id="4" transform="translate(230,367)">
-        <circle r="11" fill="#C8A84B" stroke="#E2C96A" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">4</text>
+      <!-- Jardín — 3 -->
+      <g id="stop-3" class="stop" data-id="3">
+        <circle cx="186" cy="274" r="18" class="pulse-r pr-gold" style="fill:none"/>
+        <circle cx="186" cy="274" r="11" class="mc mc-gold"/>
+        <text x="186" y="278" text-anchor="middle" class="mn">3</text>
+        <text x="172" y="272" text-anchor="end" class="city-lbl city-lbl-main">Jardín</text>
       </g>
 
-      <!-- Los Nevados -->
-      <g class="stop" data-id="5" transform="translate(254,397)">
-        <circle r="10" fill="#C8A84B" stroke="#E2C96A" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num" style="font-size:8px">5</text>
+      <!-- Manizales — 4 -->
+      <g id="stop-4" class="stop" data-id="4">
+        <circle cx="200" cy="324" r="16" class="pulse-r pr-gold" style="fill:none"/>
+        <circle cx="200" cy="324" r="10" class="mc mc-gold"/>
+        <text x="200" y="328" text-anchor="middle" class="mn">4</text>
+        <text x="214" y="322" class="city-lbl city-lbl-main">Manizales</text>
       </g>
 
-      <!-- Termales -->
-      <g class="stop" data-id="6" transform="translate(234,417)">
-        <circle r="9" fill="#C8A84B" stroke="#E2C96A" stroke-width="1.2"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num" style="font-size:7px">6</text>
+      <!-- Los Nevados excursion — 5 -->
+      <g id="stop-5" class="stop" data-id="5">
+        <line x1="200" y1="324" x2="222" y2="340" class="excursion-line"/>
+        <circle cx="222" cy="340" r="8" class="mc mc-gold-sm"/>
+        <text x="222" y="344" text-anchor="middle" class="mn" style="font-size:7px">5</text>
+        <text x="234" y="338" class="city-lbl">Nevados</text>
       </g>
 
-      <!-- Pereira -->
-      <g class="stop" data-id="7" transform="translate(237,423)">
-        <circle r="16" class="pulse-ring" fill="none" stroke="#C8A84B" stroke-width="1" opacity="0.25"/>
-        <circle r="11" fill="#C8A84B" stroke="#E2C96A" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">7</text>
+      <!-- Termales — 6 -->
+      <g id="stop-6" class="stop" data-id="6">
+        <circle cx="196" cy="352" r="7" class="mc mc-gold-sm"/>
+        <text x="196" y="356" text-anchor="middle" class="mn" style="font-size:7px">6</text>
+        <text x="184" y="350" text-anchor="end" class="city-lbl">Termales</text>
       </g>
 
-      <!-- Filandia -->
-      <g class="stop" data-id="8" transform="translate(247,435)">
-        <circle r="9" fill="#4E7C4A" stroke="#7CB878" stroke-width="1.2"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num" style="font-size:7px">8</text>
+      <!-- Pereira — 7 -->
+      <g id="stop-7" class="stop" data-id="7">
+        <circle cx="206" cy="372" r="18" class="pulse-r pr-gold" style="fill:none"/>
+        <circle cx="206" cy="372" r="11" class="mc mc-gold"/>
+        <text x="206" y="376" text-anchor="middle" class="mn">7</text>
+        <text x="220" y="370" class="city-lbl city-lbl-main">Pereira</text>
       </g>
 
-      <!-- Salento -->
-      <g class="stop" data-id="9" transform="translate(251,441)">
-        <circle r="16" class="pulse-ring" fill="none" stroke="#4E7C4A" stroke-width="1" opacity="0.25"/>
-        <circle r="12" fill="#4E7C4A" stroke="#7CB878" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">9</text>
+      <!-- Filandia — 8 -->
+      <g id="stop-8" class="stop" data-id="8">
+        <circle cx="204" cy="384" r="7" class="mc mc-green-sm"/>
+        <text x="204" y="388" text-anchor="middle" class="mn" style="font-size:7px">8</text>
+        <text x="192" y="382" text-anchor="end" class="city-lbl">Filandia</text>
       </g>
 
-      <!-- Valle del Cócora -->
-      <g class="stop" data-id="10" transform="translate(263,437)">
-        <circle r="9" fill="#4E7C4A" stroke="#7CB878" stroke-width="1.2"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num" style="font-size:7px">10</text>
+      <!-- Salento — 9 -->
+      <g id="stop-9" class="stop" data-id="9">
+        <circle cx="208" cy="394" r="18" class="pulse-r pr-green" style="fill:none"/>
+        <circle cx="208" cy="394" r="11" class="mc mc-green"/>
+        <text x="208" y="398" text-anchor="middle" class="mn">9</text>
+        <text x="222" y="392" class="city-lbl city-lbl-main">Salento</text>
       </g>
 
-      <!-- Parque del Café -->
-      <g class="stop" data-id="11" transform="translate(233,457)">
-        <circle r="10" fill="#4E7C4A" stroke="#7CB878" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num" style="font-size:8px">11</text>
+      <!-- Valle Cócora excursion — 10 -->
+      <g id="stop-10" class="stop" data-id="10">
+        <line x1="208" y1="394" x2="228" y2="390" class="excursion-line"/>
+        <circle cx="228" cy="390" r="7" class="mc mc-green-sm"/>
+        <text x="228" y="394" text-anchor="middle" class="mn" style="font-size:7px">10</text>
+        <text x="240" y="388" class="city-lbl">Cócora</text>
       </g>
 
-      <!-- Apto Pereira / regreso -->
-      <g class="stop" data-id="12" transform="translate(237,423)">
-        <circle r="16" class="pulse-ring" fill="none" stroke="#B85A35" stroke-width="1" opacity="0.3"/>
-        <circle r="11" fill="#B85A35" stroke="#E07A55" stroke-width="1.5"/>
-        <text x="0" y="4" text-anchor="middle" class="stop-num">✈</text>
+      <!-- Parque del Café — 11 -->
+      <g id="stop-11" class="stop" data-id="11">
+        <circle cx="194" cy="406" r="9" class="mc mc-green"/>
+        <text x="194" y="410" text-anchor="middle" class="mn" style="font-size:8px">11</text>
+        <text x="182" y="404" text-anchor="end" class="city-lbl">Pq. Café</text>
       </g>
 
-      <!-- City labels -->
-      <g class="city-labels">
-        <text x="316" y="57" class="city-label">Barranquilla</text>
-        <text x="263" y="203" class="city-label">Medellín</text>
-        <text x="307" y="198" class="city-label" style="font-size:8px">Guatapé</text>
-        <text x="175" y="316" class="city-label">Jardín</text>
-        <text x="245" y="378" class="city-label">Manizales</text>
-        <text x="270" y="394" class="city-label" style="font-size:7.5px">Los Nevados</text>
-        <text x="251" y="432" class="city-label">Pereira</text>
-        <text x="265" y="450" class="city-label">Salento</text>
-        <text x="212" y="464" class="city-label" style="font-size:7.5px">Pq. Café</text>
+      <!-- Regreso -->
+      <g id="stop-return" class="stop" data-id="12">
+        <circle cx="206" cy="372" r="22" class="pulse-r pr-warm" style="fill:none;opacity:.2"/>
+        <text x="206" y="358" text-anchor="middle" class="city-lbl" style="fill:#D4845A;font-size:9px">✈ Regreso</text>
       </g>
 
-      <!-- Route dashed line on top -->
-      <polyline class="route-overlay"
-        points="300,60 247,206 294,194 247,206 211,307 230,367 254,397 234,417 237,423 247,435 251,441 263,437 251,441 233,457 251,441 237,423 300,60"
-      />
     </svg>
 
-    <!-- Popup card -->
+    <!-- Popup -->
     <div id="map-popup" class="map-popup hidden">
       <button class="popup-close" onclick="closePopup()">✕</button>
       <div class="pop-day" id="pop-day"></div>
@@ -1183,7 +1168,7 @@ function resetPerson(){
       <div class="pop-desc" id="pop-desc"></div>
       <div class="pop-tags" id="pop-tags"></div>
     </div>
-  </div>
+  </div><!-- /map-wrap -->
 
   <div class="map-legend fi">
     <div class="ml-item"><span class="ml-dot" style="background:#3A6B8A"></span>Fase 1 — Medellín</div>
@@ -1194,147 +1179,181 @@ function resetPerson(){
 </section>
 
 <style>
-.map-sec{background:var(--d1);border-top:1px solid rgba(200,168,75,.12);padding:56px 0 0}
+/* ── MAP ── */
+.map-sec{background:var(--d1);border-top:1px solid rgba(200,168,75,.12);padding:56px 0 0;transition:background .4s}
 .map-header{text-align:center;padding:0 24px 32px;max-width:860px;margin:0 auto}
 .map-header .ey{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .map-header h3{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;font-style:italic;color:var(--gold2);margin-bottom:8px}
-.map-sub{font-size:12px;color:var(--muted);letter-spacing:1px}
-
-.map-wrap{
-  position:relative;
-  max-width:700px;
-  margin:0 auto;
-  border-top:1px solid rgba(200,168,75,.12);
-  border-bottom:1px solid rgba(200,168,75,.12);
-  background:#0D150D;
-  overflow:hidden;
-}
-
-#colmap{
-  width:100%;
-  height:auto;
-  display:block;
-}
-
-.col-land{fill:#142014;stroke:#253D25;stroke-width:1.5}
-.col-outline{fill:none;stroke:#2E4A2E;stroke-width:1;opacity:.5}
-
-.route-overlay{
-  fill:none;
-  stroke:#C8A84B;
-  stroke-width:1.8;
-  stroke-dasharray:5,6;
-  opacity:.7;
-  stroke-linejoin:round;
-  stroke-linecap:round;
-}
-
-.stop{cursor:pointer;transition:transform .2s}
-.stop:hover{transform:scale(1.2)}
-.stop:hover circle:not(.pulse-ring){filter:brightness(1.3)}
-
-.pulse-ring{animation:pulse-svg 2.5s ease-in-out infinite}
-@keyframes pulse-svg{
-  0%,100%{r:14;opacity:.2}
-  50%{r:20;opacity:.4}
-}
-
-.stop-num{
-  fill:#fff;
-  font-family:'Outfit',sans-serif;
-  font-size:9px;
-  font-weight:500;
-  pointer-events:none;
-}
-
-.city-label{
-  fill:rgba(200,168,75,.55);
-  font-family:'Outfit',sans-serif;
-  font-size:9px;
-  font-weight:300;
-  letter-spacing:.5px;
-  pointer-events:none;
-}
-
-/* Popup */
-.map-popup{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  background:#1A1A1A;
-  border:1px solid rgba(200,168,75,.3);
-  border-radius:14px;
-  padding:18px 20px;
-  width:min(280px, 85vw);
-  box-shadow:0 12px 40px rgba(0,0,0,.7);
-  z-index:10;
-  transition:opacity .2s;
-}
+.map-sub{font-size:12px;color:var(--muted);letter-spacing:1px;transition:color .3s}
+.map-wrap{position:relative;max-width:440px;margin:0 auto;background:var(--map-bg,#0A140A);border-top:1px solid rgba(200,168,75,.12);border-bottom:1px solid rgba(200,168,75,.12);overflow:hidden;transition:background .4s}
+#colmap{width:100%;height:auto;display:block}
+.col-fill{fill:var(--map-land,#142014);stroke:var(--map-border,#2A4A2A);stroke-width:1.2;transition:fill .4s,stroke .4s}
+.col-outline2{fill:none;stroke:var(--map-border,#2A4A2A);stroke-width:.7;opacity:.45}
+.route-line{fill:none;stroke:#C8A84B;stroke-width:2;stroke-dasharray:5,7;stroke-linejoin:round;stroke-linecap:round;opacity:.8}
+.route-copey{fill:none;stroke:#888;stroke-width:1.2;stroke-dasharray:3,4;opacity:.55}
+.excursion-line{stroke:rgba(200,168,75,.35);stroke-width:1;stroke-dasharray:2,3}
+.mc{stroke:rgba(255,255,255,.22);stroke-width:1.5}
+.mc-blue{fill:#3A6B8A}.mc-blue-sm{fill:#3A6B8A;stroke:rgba(255,255,255,.18);stroke-width:1}
+.mc-gold{fill:#C8A84B}.mc-gold-sm{fill:#C8A84B;stroke:rgba(255,255,255,.18);stroke-width:1}
+.mc-green{fill:#4E7C4A}.mc-green-sm{fill:#4E7C4A;stroke:rgba(255,255,255,.18);stroke-width:1}
+.pulse-r{fill:none;stroke-width:1;opacity:.2}
+.pr-blue{stroke:#3A6B8A;animation:pr 2.5s ease-in-out infinite}
+.pr-gold{stroke:#C8A84B;animation:pr 2.5s ease-in-out infinite .3s}
+.pr-green{stroke:#4E7C4A;animation:pr 2.5s ease-in-out infinite .6s}
+.pr-warm{stroke:#B85A35;animation:pr 2.5s ease-in-out infinite .9s}
+@keyframes pr{0%,100%{r:16;opacity:.15}50%{r:24;opacity:.4}}
+.mn{fill:#fff;font-family:'Outfit',sans-serif;font-size:9px;font-weight:500;pointer-events:none}
+.city-lbl{fill:var(--map-label,rgba(200,168,75,.6));font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:300;letter-spacing:.4px;pointer-events:none;transition:fill .4s}
+.city-lbl-main{font-size:9.5px;font-weight:400}
+.stop{cursor:pointer}.stop.dimmed{opacity:.18;pointer-events:none}
+.stop:hover .mc,.stop:hover .mc-blue,.stop:hover .mc-gold,.stop:hover .mc-green{filter:brightness(1.35)}
+.map-popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--popup-bg,#1A1A1A);border:1px solid rgba(200,168,75,.3);border-radius:14px;padding:18px 20px;width:min(250px,82vw);box-shadow:0 12px 40px rgba(0,0,0,.7);z-index:10;transition:background .3s}
 .map-popup.hidden{display:none}
-.popup-close{
-  position:absolute;top:10px;right:12px;
-  background:none;border:none;
-  color:var(--muted);font-size:14px;
-  cursor:pointer;padding:2px 6px;
-  border-radius:4px;
-  transition:color .2s;
-}
+.popup-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:2px 6px;border-radius:4px;transition:color .2s}
 .popup-close:hover{color:var(--gold)}
 .pop-day{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.pop-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;margin-bottom:6px;color:#E6E0D4}
-.pop-desc{font-size:12px;color:rgba(230,224,212,.65);line-height:1.6;margin-bottom:10px}
+.pop-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:6px;color:var(--text)}
+.pop-desc{font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px}
 .pop-tags{display:flex;flex-wrap:wrap;gap:4px}
 .pop-tag{font-size:10px;background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.15);border-radius:4px;padding:2px 8px;color:rgba(200,168,75,.8)}
-
-.map-legend{
-  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
-  padding:20px 24px 48px;
-}
+.map-legend{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:20px 24px 48px}
 .ml-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim);letter-spacing:.5px}
 .ml-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ── LIGHT MODE ── */
+body.light{
+  --dark:#F5F0E8;--d1:#EDE7D9;--d2:#E4DDD0;--d3:#D8D0C4;
+  --text:#1A1410;--muted:#8A7D6E;--dim:rgba(30,20,10,.65);
+  --gold:#8A5E18;--gold2:#6A4510;
+  --map-bg:#B8CCB0;--map-land:#7AAA62;--map-border:#5A8040;
+  --map-label:rgba(40,70,20,.7);
+  --popup-bg:#F0EBE0;
+}
+body.light .col-fill{fill:#7AAA62;stroke:#5A8040}
+body.light .hero::before{opacity:.4}
+body.light .card{background:#EDE7D9;border-color:rgba(0,0,0,.06)}
+body.light .day-num{background:#EDE7D9;border-color:rgba(100,70,10,.3)}
+body.light .sticky-filter,.body.light .welcome-banner{background:rgba(245,240,232,.96)}
+body.light .lc{background:#E4DDD0;border-color:rgba(0,0,0,.06)}
+body.light .nights-strip,.body.light .map-sec,.body.light .log-sec,.body.light .logistics{background:#EDE7D9}
+body.light .ws-up{background:rgba(100,70,10,.07);border-color:rgba(100,70,10,.2);color:rgba(100,70,10,.9)}
+body.light .ws-dn{background:rgba(40,80,120,.07);border-color:rgba(40,80,120,.2);color:#3A6090}
+body.light .tag{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1)}
+body.light .tip{background:rgba(100,70,10,.05);border-color:rgba(100,70,10,.12);border-left-color:rgba(100,70,10,.4)}
+body.light footer{border-color:rgba(0,0,0,.08)}
+body.light .pcard{background:#EDE7D9;border-color:rgba(58,107,138,.2)}
+body.light .sel-bg,.body.light .sel-dots{opacity:.3}
+body.light #selector-screen{background:#F5F0E8}
+body.light .hd-cell{background:rgba(245,240,232,.9)}
+body.light .stats-bar,.body.light .overview{background:#EDE7D9}
+body.light .ph-1{background:rgba(58,107,138,.1)}
+body.light .ph-2{background:rgba(100,70,10,.08)}
+body.light .ph-3{background:rgba(60,100,56,.08)}
+body.light .ph-4{background:rgba(150,70,30,.08)}
+body.light .hero-title{color:#1A1410}
+body.light .hero-title em{color:var(--gold)}
+body.light .sel-title{color:#1A1410}
+body.light .sel-title em{color:var(--gold)}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{
+  position:fixed;bottom:28px;right:24px;z-index:200;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--d2);border:1px solid rgba(200,168,75,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+  transition:all .3s;
+}
+.theme-toggle:hover{transform:scale(1.1);border-color:var(--gold)}
 </style>
 
 <script>
-(function(){
-  const stops = [
-    { day:'Punto de partida · ✈', name:'Barranquilla', desc:'Salida 7:00 AM con destino a Medellín. Inicio del viaje.', tags:['Vuelo 7:00 AM','Oct 3','BAQ → MDE'] },
-    { day:'Días 1–3 · Oct 3–5', name:'Medellín', desc:'Llegada, Acuario de Medellín, Parque Explora, City Tour con Metrocable y Plaza Botero. 3 noches en El Poblado.', tags:['3 noches','Acuario','City Tour','El Poblado'] },
-    { day:'Día 2 · Oct 4 — excursión', name:'Guatapé', desc:'La Piedra del Peñol (740 escalones) con vistas épicas del embalse y recorrido por el colorido pueblo.', tags:['~2h bus desde MDE','740 escalones','Regreso mismo día'] },
-    { day:'Día 4 · Oct 6', name:'Jardín', desc:'Pueblo patrimonial de Antioquia. Basílica Menor, parque central lleno de color y cable aéreo panorámico.', tags:['1 noche','~3h bus','Grupo A + B juntos'] },
-    { day:'Día 5 · Oct 7', name:'Manizales', desc:'Base para Los Nevados. Recogida de 2 vehículos alquilados. Centro histórico y Mirador El Cable.', tags:['1 noche','~3.5h bus','Recogida carros'] },
-    { day:'Día 6 · Oct 8 — mañana', name:'PNN Los Nevados', desc:'Salida 5:00 AM. Nevado del Ruiz a 4.800 msnm y miradores de la Laguna del Otún. Visita matutina.', tags:['Salida 5:00 AM','4.800 msnm','Vehículo propio'] },
-    { day:'Día 6 · Oct 8 — tarde', name:'Termales Santa Rosa', desc:'Parada en las Termales de Santa Rosa de Cabal de camino a Pereira. Relax post-nevados.', tags:['Aguas termales','Camino a Pereira'] },
-    { day:'Día 6–7 · Oct 8–9', name:'Pereira', desc:'Noche en Pereira. Mañana del 9: llega Grupo C (Gisela & Alex). Desayuno grupal de los 10.', tags:['1 noche','Llega Grupo C Oct 9','Devolución carros'] },
-    { day:'Día 7 · Oct 9', name:'Filandia', desc:'Pueblo mágico con mirador 360° del cañón del río Cauca y artesanías en guadua.', tags:['~45 min de Pereira','Mirador Coliseo','Artesanías'] },
-    { day:'Días 7–9 · Oct 9–11', name:'Salento', desc:'Base del Eje Cafetero. Arquitectura colonial, café de origen y la famosa trucha. 3 noches.', tags:['3 noches','Base Eje Cafetero','Calle Real'] },
-    { day:'Día 8 · Oct 10 — excursión', name:'Valle del Cócora', desc:'Caminata circular 3–4h entre palmas de cera de hasta 60m — el árbol nacional de Colombia.', tags:['Jeep 6:30 AM','Caminata ~3-4h','Palmas de cera'] },
-    { day:'Día 9 · Oct 11', name:'Parque del Café', desc:'Día completo. Tour del café (semilla→taza), teleférico, tren cafetero y show folclórico en Montenegro.', tags:['Día completo','Abre 9 AM','Reservar online'] },
-    { day:'Oct 12 · Regreso ✈', name:'Aeropuerto Pereira', desc:'Transfer desde Salento (~1.5h). Vuelo de regreso a Barranquilla antes del mediodía.', tags:['Vuelo 7:00–8:30 AM','PEI → BAQ','Antes del mediodía'] },
-  ];
+/* ── MAP DATA ── */
+const mapStops = {
+  baq:  {day:'Punto de partida',name:'Barranquilla',desc:'Salida 7:00 AM. José y Rosa vuelan directo BAQ → MDE.',tags:['Vuelo 7:00 AM','Oct 3','BAQ → MDE']},
+  copey:{day:'Punto de partida',name:'El Copey, Cesar',desc:'Cristina, Sebas, Loly R, Héctor, Gisela y Alex salen en bus a Santa Marta para tomar su vuelo.',tags:['Bus a SMR ~1.5h','El Copey → SMR']},
+  smr:  {day:'Punto de partida',name:'Santa Marta (SMR)',desc:'Grupo A (desde El Copey): SMR → MDE. Gisela y Alex: SMR → PEI el Oct 9.',tags:['SMR→MDE Grupo A','SMR→PEI Gisela & Alex']},
+  1:    {day:'Días 1–3 · Oct 3–5',name:'Medellín',desc:'Llegada, Acuario, Parque Explora, City Tour con Metrocable y Plaza Botero. 3 noches en El Poblado.',tags:['3 noches','Acuario + Explora','City Tour','Metrocable']},
+  2:    {day:'Día 2 · Oct 4',name:'Guatapé',desc:'La Piedra del Peñol (740 escalones), vistas épicas del embalse y recorrido por el colorido pueblo.',tags:['~2h bus desde MDE','740 escalones','Excursión día completo']},
+  3:    {day:'Día 4 · Oct 6',name:'Jardín',desc:'Pueblo patrimonial de Antioquia. Basílica Menor, parque central y cable aéreo panorámico. 1 noche.',tags:['1 noche','~3h bus','Grupos A + B']},
+  4:    {day:'Día 5 · Oct 7',name:'Manizales',desc:'Base para Los Nevados. Recogida de 2 vehículos alquilados. Centro histórico y Mirador El Cable.',tags:['1 noche','~3.5h bus','Recogida carros']},
+  5:    {day:'Día 6 · Oct 8 — mañana',name:'PNN Los Nevados',desc:'Salida 5:00 AM. Nevado del Ruiz a 4.800 msnm y miradores de la Laguna del Otún.',tags:['Salida 5:00 AM','4.800 msnm','Vehículo propio']},
+  6:    {day:'Día 6 · Oct 8 — tarde',name:'Termales Santa Rosa',desc:'Parada en las Termales de Santa Rosa de Cabal camino a Pereira. Relax post-nevados.',tags:['Aguas termales','Camino a Pereira']},
+  7:    {day:'Días 6–7 · Oct 8–9',name:'Pereira',desc:'Noche en Pereira. Mañana del 9: llega Grupo C (Gisela & Alex). Desayuno grupal de los 10.',tags:['1 noche','Llega Grupo C Oct 9','Devolución carros']},
+  8:    {day:'Día 7 · Oct 9',name:'Filandia',desc:'Pueblo mágico con mirador 360° del cañón del río Cauca y artesanías en guadua.',tags:['~45 min de Pereira','Mirador Coliseo','Artesanías']},
+  9:    {day:'Días 7–9 · Oct 9–11',name:'Salento',desc:'Base del Eje Cafetero. Arquitectura colonial, café de origen y la famosa trucha. 3 noches.',tags:['3 noches','Base Eje Cafetero','Calle Real']},
+  10:   {day:'Día 8 · Oct 10',name:'Valle del Cócora',desc:'Caminata circular 3–4h entre palmas de cera de hasta 60m — árbol nacional de Colombia.',tags:['Jeep 6:30 AM','Caminata ~3-4h','Palmas de cera']},
+  11:   {day:'Día 9 · Oct 11',name:'Parque del Café',desc:'Día completo. Tour del café, teleférico, tren cafetero y show folclórico en Montenegro.',tags:['Día completo','Abre 9 AM','Reservar online']},
+  12:   {day:'Oct 12 · Regreso ✈',name:'Aeropuerto Pereira',desc:'Transfer desde Salento (~1.5h). Vuelo de regreso a Barranquilla antes del mediodía.',tags:['Vuelo 7:00–8:30 AM','PEI → BAQ','Antes del mediodía']},
+};
 
-  document.querySelectorAll('.stop').forEach(el => {
-    el.addEventListener('click', function(e){
-      e.stopPropagation();
-      const id = parseInt(this.dataset.id);
-      const s = stops[id];
-      document.getElementById('pop-day').textContent = s.day;
-      document.getElementById('pop-title').textContent = s.name;
-      document.getElementById('pop-desc').textContent = s.desc;
-      document.getElementById('pop-tags').innerHTML = s.tags.map(t=>`<span class="pop-tag">${t}</span>`).join('');
-      document.getElementById('map-popup').classList.remove('hidden');
-    });
+const groupStops = {
+  all:['baq','copey','smr',1,2,3,4,5,6,7,8,9,10,11,12],
+  A:  ['baq','copey','smr',1,2,3,4,5,6,7,8,9,10,11,12],
+  B:  [1,2,3,4,5,6,7,8,9,10,11,12],
+  C:  ['copey','smr',7,8,9,10,11,12],
+};
+const originCopey=['cristina','sebas','lolyr','hector'];
+const originBaq=['jose','rosa'];
+
+function updateMapForPerson(personKey){
+  const p = (personKey==='all') ? {group:'all'} : (typeof persons!=='undefined' ? persons[personKey] : {group:'all'});
+  const group = p ? p.group : 'all';
+
+  document.getElementById('route-all').style.display = (group==='all'||group==='A') ? '' : 'none';
+  document.getElementById('route-B').style.display   = group==='B' ? '' : 'none';
+  document.getElementById('route-C').style.display   = group==='C' ? '' : 'none';
+
+  const showCopey = group==='all' || originCopey.includes(personKey) || group==='C';
+  document.getElementById('route-smr').style.display   = showCopey ? '' : 'none';
+  document.getElementById('stop-copey').style.display  = showCopey ? '' : 'none';
+  document.getElementById('stop-smr').style.display    = showCopey ? '' : 'none';
+  document.getElementById('stop-baq').style.display    = (group==='all'||originBaq.includes(personKey)||group==='A') ? '' : 'none';
+
+  const active = groupStops[group] || groupStops.all;
+  document.querySelectorAll('.stop').forEach(el=>{
+    const sid = el.dataset.id;
+    const sidN = isNaN(sid) ? sid : parseInt(sid);
+    el.classList.toggle('dimmed', !(active.includes(sidN)||active.includes(sid)));
   });
 
-  // close popup clicking outside
-  document.getElementById('colmap').addEventListener('click', closePopup);
-})();
+  const sub = document.getElementById('map-sub-txt');
+  if(p && p.name && personKey!=='all'){
+    sub.textContent = `Ruta de ${p.name} · ${p.origin||''}`;
+  } else {
+    sub.textContent = 'Toca cada punto para ver los detalles del destino';
+  }
+}
 
-function closePopup(){
-  document.getElementById('map-popup').classList.add('hidden');
+document.querySelectorAll('.stop').forEach(el=>{
+  el.addEventListener('click',function(e){
+    e.stopPropagation();
+    const id = this.dataset.id;
+    const sid = isNaN(id) ? id : parseInt(id);
+    const s = mapStops[sid]||mapStops[id];
+    if(!s) return;
+    document.getElementById('pop-day').textContent   = s.day;
+    document.getElementById('pop-title').textContent = s.name;
+    document.getElementById('pop-desc').textContent  = s.desc;
+    document.getElementById('pop-tags').innerHTML    = s.tags.map(t=>`<span class="pop-tag">${t}</span>`).join('');
+    document.getElementById('map-popup').classList.remove('hidden');
+  });
+});
+document.getElementById('colmap').addEventListener('click', closePopup);
+function closePopup(){ document.getElementById('map-popup').classList.add('hidden'); }
+
+/* ── THEME ── */
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  document.querySelector('.theme-toggle').textContent = isLight ? '🌙' : '☀️';
 }
 </script>
 
-<footer>
+<!-- Theme toggle FAB -->
+<button class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">☀️</button>
+
+
   <div class="footer-sig">Creado con ♡ por José & Rosa</div>
   <small>Colombia · Octubre 2026</small>
 </footer>
