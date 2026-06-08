@@ -12,6 +12,7 @@
   --text:#E6E0D4;--muted:#777;--dim:rgba(230,224,212,0.6);
   --blue:#3A6B8A;--green:#4E7C4A;--warm:#B85A35;--rose:#9B4F6A;
   --colA:#3A6B8A;--colB:#4E7C4A;--colC:#9B4F6A;
+  --map-label:rgba(200,168,75,.6);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -435,52 +436,52 @@ footer small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:va
 <script>
 // ── PERSON DATA ──
 const persons = {
-  jose:    { name:'José',     emoji:'🧳', group:'A', color:'#3A6B8A',
-             greeting:'¡Bienvenido José! 👋',
-             msg:'Sales el 3 de octubre desde Barranquilla. 10 días, 10 personas, un viaje para siempre.',
-             origin:'✈ Sale desde Barranquilla (BAQ → MDE)',
-             firstDay:1 },
-  rosa:    { name:'Rosa',     emoji:'🌸', group:'A', color:'#3A6B8A',
+  jose:    { name:'José',     emoji:'🧳', group:'A', color:'#7FBBD4', colorLight:'#2A5A7A',
+      greeting:'¡Bienvenido José! 👋',
+              msg:'Sales el 3 de octubre desde Barranquilla. 10 días, 10 personas, un viaje para siempre.',
+              origin:'✈ Sale desde Barranquilla (BAQ → MDE)',
+              firstDay:1 },
+  rosa:    { name:'Rosa',     emoji:'🌸', group:'A', color:'#7FBBD4', colorLight:'#2A5A7A',
              greeting:'¡Hola Rosa! 🌸',
              msg:'Co-organizadora del viaje. Sales el 3 de octubre desde Barranquilla junto a José.',
              origin:'✈ Sale desde Barranquilla (BAQ → MDE)',
              firstDay:1 },
-  cristina:{ name:'Cristina', emoji:'✨', group:'A', color:'#3A6B8A',
+  cristina:{ name:'Cristina', emoji:'✨', group:'A', color:'#7FBBD4', colorLight:'#2A5A7A',
              greeting:'¡Bienvenida Cristina! ✨',
              msg:'Sales desde El Copey en bus hasta Santa Marta, y de ahí vuelo directo a Medellín el 3 de octubre.',
              origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
              firstDay:1 },
-  sebas:   { name:'Sebas',    emoji:'🎒', group:'A', color:'#3A6B8A',
+  sebas:   { name:'Sebas',    emoji:'🎒', group:'A', color:'#7FBBD4', colorLight:'#2A5A7A',
              greeting:'¡Qué más Sebas! 🎒',
              msg:'Bus desde El Copey a Santa Marta y vuelo a Medellín el 3 de octubre. ¡Arranca el viaje!',
              origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
              firstDay:1 },
-  lolyr:   { name:'Loly R',   emoji:'🌺', group:'A', color:'#3A6B8A',
+  lolyr:   { name:'Loly R',   emoji:'🌺', group:'A', color:'#7FBBD4', colorLight:'#2A5A7A',
              greeting:'¡Hola Loly R! 🌺',
              msg:'Desde El Copey en bus hasta Santa Marta, y vuelo directo a Medellín el 3 de octubre.',
              origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
              firstDay:1 },
-  hector:  { name:'Héctor',   emoji:'🏔️', group:'A', color:'#3A6B8A',
+  hector:  { name:'Héctor',   emoji:'🏔️', group:'A', color:'#7FBBD4', colorLight:'#2A5A7A',
              greeting:'¡Bienvenido Héctor! 🏔️',
              msg:'Sales desde El Copey, bus a Santa Marta y vuelo a Medellín. ¡Los Nevados te esperan!',
              origin:'🚌 El Copey → Santa Marta · ✈ SMR → MDE',
              firstDay:1 },
-  lolya:   { name:'Loly A',   emoji:'🎶', group:'B', color:'#4E7C4A',
+  lolya:   { name:'Loly A',   emoji:'🎶', group:'B', color:'#8FC48A', colorLight:'#2A6A2A',
              greeting:'¡Hola Loly A! 🎶',
              msg:'Te unes al grupo el 5 de octubre en Medellín. De ahí en adelante todo el recorrido juntos.',
              origin:'✈ Llega a Medellín el 5 de octubre (noche)',
              firstDay:3 },
-  richar:  { name:'Richar',   emoji:'🚀', group:'B', color:'#4E7C4A',
+  richar:  { name:'Richar',   emoji:'🚀', group:'B', color:'#8FC48A', colorLight:'#2A6A2A',
              greeting:'¡Qué más Richar! 🚀',
              msg:'Tu aventura empieza el 5 de octubre en Medellín. ¡Pura Colombia desde ahí!',
              origin:'✈ Llega a Medellín el 5 de octubre (noche)',
              firstDay:3 },
-  gisela:  { name:'Gisela',   emoji:'☕', group:'C', color:'#9B4F6A',
+  gisela:  { name:'Gisela',   emoji:'☕', group:'C', color:'#C48AA8', colorLight:'#7A2A5A',
              greeting:'¡Bienvenida Gisela! ☕',
              msg:'Sales desde El Copey en bus hasta Santa Marta, y vuelo directo a Pereira el 9 de octubre. ¡Eje Cafetero te espera!',
              origin:'🚌 El Copey → Santa Marta · ✈ SMR → PEI · llega Oct 9',
              firstDay:7 },
-  alex:    { name:'Alex',     emoji:'📷', group:'C', color:'#9B4F6A',
+  alex:    { name:'Alex',     emoji:'📷', group:'C', color:'#C48AA8', colorLight:'#7A2A5A',
              greeting:'¡Hola Alex! 📷',
              msg:'Bus desde El Copey a Santa Marta y vuelo a Pereira el 9 de octubre. ¡Carga la cámara!',
              origin:'🚌 El Copey → Santa Marta · ✈ SMR → PEI · llega Oct 9',
@@ -527,8 +528,15 @@ function selectPerson(key){
   // scroll to top of itinerary
   document.querySelector('.nights-strip').scrollIntoView({behavior:'smooth'});
 
-  // update hero title color accent
-  document.querySelector('.hero-title em').style.color = p.color;
+  // update hero title color accent (theme-aware)
+  applyHeroColor(p);
+}
+
+function applyHeroColor(p){
+  if(!p) return;
+  const isLight = document.body.classList.contains('light');
+  const c = (isLight && p.colorLight) ? p.colorLight : p.color;
+  document.querySelector('.hero-title em').style.color = c;
 }
 
 function resetPerson(){
@@ -541,6 +549,8 @@ function resetPerson(){
   document.getElementById('welcome-banner').classList.add('hidden');
   // reset filter
   setFilter('all');
+  // reset hero em color to gold
+  document.querySelector('.hero-title em').style.color = '';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
@@ -944,218 +954,148 @@ function resetPerson(){
   <div class="map-wrap" id="map-wrap">
     <svg id="colmap" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
 
-      <!-- ══ COLOMBIA SHAPE — realistic simplified ══ -->
-      <path id="col-main" class="col-fill" d="
-        M 195,22
-        C 208,16 224,13 240,14 C 256,15 268,20 280,18
-        C 292,16 302,11 314,13 C 326,15 336,22 346,20
-        C 356,18 364,13 374,16 C 382,19 388,26 390,34
-        C 392,42 388,50 384,56 C 380,62 374,66 368,72
-        C 362,78 356,84 348,90 C 340,96 330,100 322,106
-        C 314,112 308,120 302,128 C 296,136 290,144 284,150
-        C 278,156 270,160 262,164 C 254,168 246,170 238,174
-        C 230,178 224,184 218,190 C 212,196 206,204 200,210
-        C 194,216 188,222 182,230 C 176,238 170,246 166,256
-        C 162,266 160,276 156,286 C 152,296 146,304 140,312
-        C 134,320 126,326 120,334 C 114,342 108,350 104,360
-        C 100,370 98,380 96,390 C 94,400 92,410 88,420
-        C 84,430 78,438 72,446 C 66,454 60,462 56,472
-        C 52,482 50,494 52,504 C 54,514 60,522 68,528
-        C 76,534 86,536 96,534 C 106,532 114,526 118,518
-        C 122,510 120,500 114,494 C 108,488 100,488 94,492
-        C 88,496 86,504 90,510 C 94,516 102,518 108,514
-        M 118,518
-        C 120,528 116,540 108,546 C 100,552 88,550 82,542
-        C 76,534 78,522 86,516 C 94,510 106,512 112,520
-        M 156,286
-        C 164,282 174,282 180,288 C 186,294 186,304 180,310
-        C 174,316 164,314 160,308
-        M 200,210
-        C 210,206 222,208 228,216 C 234,224 232,236 224,240
-        C 216,244 206,240 202,232
-        M 238,174
-        C 248,172 258,176 262,184 C 266,192 262,204 254,206
-        C 246,208 238,202 236,194
-        M 374,16
-        C 382,12 392,14 398,22 C 404,30 402,42 394,46
-        C 386,50 376,46 374,38 C 372,30 376,22 382,18
-        M 384,56
-        C 392,52 402,56 406,64 C 410,72 406,84 398,86
-        C 390,88 382,82 382,74
-      "/>
-
-      <!-- Borders subtle overlay -->
-      <path id="col-border" class="col-outline2" d="
-        M 195,22 C 224,12 270,10 314,14 C 348,17 376,14 390,34
-        C 396,44 382,66 358,90 C 334,114 302,128 276,154
-        C 250,180 224,202 198,232 C 172,262 152,296 128,330
-        C 104,364 80,404 64,444 C 48,484 50,514 68,530
-        C 86,546 114,538 122,518 C 130,498 112,480 94,488
-        C 76,496 76,520 90,528
-      "/>
-
       <!-- ══ ROUTE LINES ══ -->
-      <!-- Group A full route (BAQ/SMR → MDE → Jardín → Manizales → Termales → Pereira → Salento → Regreso) -->
       <polyline id="route-all" class="route-line" points="
-        244,36
-        248,42
-        220,178
-        264,168
-        220,178
-        186,274
-        200,324
-        212,348
-        204,362
-        206,372
-        204,362
-        206,378
-        208,386
-        206,378
-        200,398
-        208,386
-        244,36
+        278,66
+        305,63
+        312,76
+        305,63
+        237,162
+        275,152
+        237,162
+        212,232
+        224,302
+        248,326
+        218,350
+        224,374
+        217,392
+        222,410
+        242,406
+        208,428
+        224,374
       "/>
 
-      <!-- Group B route (starts Medellín) -->
       <polyline id="route-B" class="route-line" style="display:none" points="
-        220,178
-        186,274
-        200,324
-        212,348
-        204,362
-        206,372
-        204,362
-        206,378
-        208,386
-        206,378
-        200,398
-        208,386
+        237,162
+        212,232
+        224,302
+        248,326
+        218,350
+        224,374
+        217,392
+        222,410
+        242,406
+        208,428
+        224,374
       "/>
 
-      <!-- Group C route (starts Pereira) -->
       <polyline id="route-C" class="route-line" style="display:none" points="
-        206,372
-        206,378
-        208,386
-        206,378
-        200,398
-        208,386
+        224,374
+        217,392
+        222,410
+        242,406
+        208,428
+        224,374
       "/>
 
-      <!-- El Copey → SMR connector -->
-      <polyline id="route-smr" class="route-copey" points="258,52 248,42 220,178"/>
+      <polyline id="route-smr" class="route-copey" points="312,76 305,63 237,162"/>
 
       <!-- ══ STOPS ══ -->
 
-      <!-- El Copey -->
       <g id="stop-copey" class="stop stop-origin" data-id="copey">
-        <circle cx="260" cy="52" r="5" fill="#555" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
-        <text x="270" y="56" class="city-lbl">El Copey</text>
+        <circle cx="312" cy="76" r="5" fill="#555" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <text x="326" y="80" class="city-lbl">El Copey</text>
       </g>
 
-      <!-- Barranquilla -->
       <g id="stop-baq" class="stop stop-origin" data-id="baq">
-        <circle cx="244" cy="34" r="18" class="pulse-r" stroke="#888" style="fill:none"/>
-        <circle cx="244" cy="34" r="10" fill="#666" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
-        <text x="244" y="38" text-anchor="middle" class="mn">✈</text>
-        <text x="258" y="32" class="city-lbl city-lbl-main">Barranquilla</text>
+        <circle cx="278" cy="66" r="18" class="pulse-r" stroke="#888" style="fill:none"/>
+        <circle cx="278" cy="66" r="10" fill="#666" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <text x="278" y="70" text-anchor="middle" class="mn">✈</text>
+        <text x="262" y="58" text-anchor="end" class="city-lbl city-lbl-main">Barranquilla</text>
       </g>
 
-      <!-- Santa Marta -->
       <g id="stop-smr" class="stop stop-origin" data-id="smr">
-        <circle cx="250" cy="42" r="6" fill="#5A5A8A" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
-        <text x="260" y="46" class="city-lbl">Sta. Marta</text>
+        <circle cx="305" cy="63" r="6" fill="#5A5A8A" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <text x="318" y="55" class="city-lbl">Sta. Marta</text>
       </g>
 
-      <!-- Medellín — 1 -->
       <g id="stop-1" class="stop" data-id="1">
-        <circle cx="220" cy="178" r="20" class="pulse-r pr-blue" style="fill:none"/>
-        <circle cx="220" cy="178" r="12" class="mc mc-blue"/>
-        <text x="220" y="182" text-anchor="middle" class="mn">1</text>
-        <text x="235" y="176" class="city-lbl city-lbl-main">Medellín</text>
+        <circle cx="237" cy="162" r="20" class="pulse-r pr-blue" style="fill:none"/>
+        <circle cx="237" cy="162" r="12" class="mc mc-blue"/>
+        <text x="237" y="166" text-anchor="middle" class="mn">1</text>
+        <text x="252" y="160" class="city-lbl city-lbl-main">Medellín</text>
       </g>
 
-      <!-- Guatapé excursion — 2 -->
       <g id="stop-2" class="stop" data-id="2">
-        <line x1="220" y1="178" x2="264" y2="168" class="excursion-line"/>
-        <circle cx="264" cy="168" r="8" class="mc mc-blue-sm"/>
-        <text x="264" y="172" text-anchor="middle" class="mn" style="font-size:8px">2</text>
-        <text x="276" y="165" class="city-lbl">Guatapé</text>
+        <line x1="237" y1="162" x2="275" y2="152" class="excursion-line"/>
+        <circle cx="275" cy="152" r="8" class="mc mc-blue-sm"/>
+        <text x="275" y="156" text-anchor="middle" class="mn" style="font-size:8px">2</text>
+        <text x="287" y="149" class="city-lbl">Guatapé</text>
       </g>
 
-      <!-- Jardín — 3 -->
       <g id="stop-3" class="stop" data-id="3">
-        <circle cx="186" cy="274" r="18" class="pulse-r pr-gold" style="fill:none"/>
-        <circle cx="186" cy="274" r="11" class="mc mc-gold"/>
-        <text x="186" y="278" text-anchor="middle" class="mn">3</text>
-        <text x="172" y="272" text-anchor="end" class="city-lbl city-lbl-main">Jardín</text>
+        <circle cx="212" cy="232" r="18" class="pulse-r pr-gold" style="fill:none"/>
+        <circle cx="212" cy="232" r="11" class="mc mc-gold"/>
+        <text x="212" y="236" text-anchor="middle" class="mn">3</text>
+        <text x="198" y="230" text-anchor="end" class="city-lbl city-lbl-main">Jardín</text>
       </g>
 
-      <!-- Manizales — 4 -->
       <g id="stop-4" class="stop" data-id="4">
-        <circle cx="200" cy="324" r="16" class="pulse-r pr-gold" style="fill:none"/>
-        <circle cx="200" cy="324" r="10" class="mc mc-gold"/>
-        <text x="200" y="328" text-anchor="middle" class="mn">4</text>
-        <text x="214" y="322" class="city-lbl city-lbl-main">Manizales</text>
+        <circle cx="224" cy="302" r="16" class="pulse-r pr-gold" style="fill:none"/>
+        <circle cx="224" cy="302" r="10" class="mc mc-gold"/>
+        <text x="224" y="306" text-anchor="middle" class="mn">4</text>
+        <text x="240" y="298" class="city-lbl city-lbl-main">Manizales</text>
       </g>
 
-      <!-- Los Nevados excursion — 5 -->
       <g id="stop-5" class="stop" data-id="5">
-        <line x1="200" y1="324" x2="222" y2="340" class="excursion-line"/>
-        <circle cx="222" cy="340" r="8" class="mc mc-gold-sm"/>
-        <text x="222" y="344" text-anchor="middle" class="mn" style="font-size:7px">5</text>
-        <text x="234" y="338" class="city-lbl">Nevados</text>
+        <line x1="224" y1="302" x2="248" y2="326" class="excursion-line"/>
+        <circle cx="248" cy="326" r="8" class="mc mc-gold-sm"/>
+        <text x="248" y="330" text-anchor="middle" class="mn" style="font-size:7px">5</text>
+        <text x="264" y="324" class="city-lbl">Nevados</text>
       </g>
 
-      <!-- Termales — 6 -->
       <g id="stop-6" class="stop" data-id="6">
-        <circle cx="196" cy="352" r="7" class="mc mc-gold-sm"/>
-        <text x="196" y="356" text-anchor="middle" class="mn" style="font-size:7px">6</text>
-        <text x="184" y="350" text-anchor="end" class="city-lbl">Termales</text>
+        <circle cx="218" cy="350" r="7" class="mc mc-gold-sm"/>
+        <text x="218" y="354" text-anchor="middle" class="mn" style="font-size:7px">6</text>
+        <text x="204" y="348" text-anchor="end" class="city-lbl">Termales</text>
       </g>
 
-      <!-- Pereira — 7 -->
       <g id="stop-7" class="stop" data-id="7">
-        <circle cx="206" cy="372" r="18" class="pulse-r pr-gold" style="fill:none"/>
-        <circle cx="206" cy="372" r="11" class="mc mc-gold"/>
-        <text x="206" y="376" text-anchor="middle" class="mn">7</text>
-        <text x="220" y="370" class="city-lbl city-lbl-main">Pereira</text>
+        <circle cx="224" cy="374" r="18" class="pulse-r pr-gold" style="fill:none"/>
+        <circle cx="224" cy="374" r="11" class="mc mc-gold"/>
+        <text x="224" y="378" text-anchor="middle" class="mn">7</text>
+        <text x="240" y="372" class="city-lbl city-lbl-main">Pereira</text>
       </g>
 
-      <!-- Filandia — 8 -->
       <g id="stop-8" class="stop" data-id="8">
-        <circle cx="204" cy="384" r="7" class="mc mc-green-sm"/>
-        <text x="204" y="388" text-anchor="middle" class="mn" style="font-size:7px">8</text>
-        <text x="192" y="382" text-anchor="end" class="city-lbl">Filandia</text>
+        <circle cx="217" cy="392" r="7" class="mc mc-green-sm"/>
+        <text x="217" y="396" text-anchor="middle" class="mn" style="font-size:7px">8</text>
+        <text x="203" y="390" text-anchor="end" class="city-lbl">Filandia</text>
       </g>
 
-      <!-- Salento — 9 -->
       <g id="stop-9" class="stop" data-id="9">
-        <circle cx="208" cy="394" r="18" class="pulse-r pr-green" style="fill:none"/>
-        <circle cx="208" cy="394" r="11" class="mc mc-green"/>
-        <text x="208" y="398" text-anchor="middle" class="mn">9</text>
-        <text x="222" y="392" class="city-lbl city-lbl-main">Salento</text>
+        <circle cx="222" cy="410" r="18" class="pulse-r pr-green" style="fill:none"/>
+        <circle cx="222" cy="410" r="11" class="mc mc-green"/>
+        <text x="222" y="414" text-anchor="middle" class="mn">9</text>
+        <text x="240" y="408" class="city-lbl city-lbl-main">Salento</text>
       </g>
 
-      <!-- Valle Cócora excursion — 10 -->
       <g id="stop-10" class="stop" data-id="10">
-        <line x1="208" y1="394" x2="228" y2="390" class="excursion-line"/>
-        <circle cx="228" cy="390" r="7" class="mc mc-green-sm"/>
-        <text x="228" y="394" text-anchor="middle" class="mn" style="font-size:7px">10</text>
-        <text x="240" y="388" class="city-lbl">Cócora</text>
+        <line x1="222" y1="410" x2="242" y2="406" class="excursion-line"/>
+        <circle cx="242" cy="406" r="7" class="mc mc-green-sm"/>
+        <text x="242" y="410" text-anchor="middle" class="mn" style="font-size:7px">10</text>
+        <text x="230" y="404" text-anchor="end" class="city-lbl">Cócora</text>
       </g>
 
-      <!-- Parque del Café — 11 -->
       <g id="stop-11" class="stop" data-id="11">
-        <circle cx="194" cy="406" r="9" class="mc mc-green"/>
-        <text x="194" y="410" text-anchor="middle" class="mn" style="font-size:8px">11</text>
-        <text x="182" y="404" text-anchor="end" class="city-lbl">Pq. Café</text>
+        <circle cx="208" cy="428" r="9" class="mc mc-green"/>
+        <text x="208" y="432" text-anchor="middle" class="mn" style="font-size:8px">11</text>
+        <text x="194" y="426" text-anchor="end" class="city-lbl">Pq. Café</text>
       </g>
 
-      <!-- Regreso -->
       <g id="stop-return" class="stop" data-id="12">
-        <circle cx="206" cy="372" r="22" class="pulse-r pr-warm" style="fill:none;opacity:.2"/>
-        <text x="206" y="358" text-anchor="middle" class="city-lbl" style="fill:#D4845A;font-size:9px">✈ Regreso</text>
+        <circle cx="224" cy="374" r="22" class="pulse-r pr-warm" style="fill:none;opacity:.2"/>
+        <text x="224" y="358" text-anchor="middle" class="city-lbl" style="fill:#D4845A;font-size:9px">✈ Regreso</text>
       </g>
 
     </svg>
@@ -1185,10 +1125,8 @@ function resetPerson(){
 .map-header .ey{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .map-header h3{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;font-style:italic;color:var(--gold2);margin-bottom:8px}
 .map-sub{font-size:12px;color:var(--muted);letter-spacing:1px;transition:color .3s}
-.map-wrap{position:relative;max-width:440px;margin:0 auto;background:var(--map-bg,#0A140A);border-top:1px solid rgba(200,168,75,.12);border-bottom:1px solid rgba(200,168,75,.12);overflow:hidden;transition:background .4s}
+.map-wrap{position:relative;max-width:440px;margin:0 auto;background:var(--d3);border-top:1px solid rgba(200,168,75,.12);border-bottom:1px solid rgba(200,168,75,.12);overflow:hidden;transition:background .4s;border-radius:8px}
 #colmap{width:100%;height:auto;display:block}
-.col-fill{fill:var(--map-land,#142014);stroke:var(--map-border,#2A4A2A);stroke-width:1.2;transition:fill .4s,stroke .4s}
-.col-outline2{fill:none;stroke:var(--map-border,#2A4A2A);stroke-width:.7;opacity:.45}
 .route-line{fill:none;stroke:#C8A84B;stroke-width:2;stroke-dasharray:5,7;stroke-linejoin:round;stroke-linecap:round;opacity:.8}
 .route-copey{fill:none;stroke:#888;stroke-width:1.2;stroke-dasharray:3,4;opacity:.55}
 .excursion-line{stroke:rgba(200,168,75,.35);stroke-width:1;stroke-dasharray:2,3}
@@ -1203,7 +1141,7 @@ function resetPerson(){
 .pr-warm{stroke:#B85A35;animation:pr 2.5s ease-in-out infinite .9s}
 @keyframes pr{0%,100%{r:16;opacity:.15}50%{r:24;opacity:.4}}
 .mn{fill:#fff;font-family:'Outfit',sans-serif;font-size:9px;font-weight:500;pointer-events:none}
-.city-lbl{fill:var(--map-label,rgba(200,168,75,.6));font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:300;letter-spacing:.4px;pointer-events:none;transition:fill .4s}
+.city-lbl{fill:var(--map-label);font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:300;letter-spacing:.4px;pointer-events:none;transition:fill .4s}
 .city-lbl-main{font-size:9.5px;font-weight:400}
 .stop{cursor:pointer}.stop.dimmed{opacity:.18;pointer-events:none}
 .stop:hover .mc,.stop:hover .mc-blue,.stop:hover .mc-gold,.stop:hover .mc-green{filter:brightness(1.35)}
@@ -1222,38 +1160,58 @@ function resetPerson(){
 
 /* ── LIGHT MODE ── */
 body.light{
-  --dark:#F5F0E8;--d1:#EDE7D9;--d2:#E4DDD0;--d3:#D8D0C4;
-  --text:#1A1410;--muted:#8A7D6E;--dim:rgba(30,20,10,.65);
+  --dark:#E8E5DF;--d1:#DDD9D2;--d2:#D2CDC4;--d3:#C6C1B8;
+  --text:#1A1410;--muted:#706458;--dim:rgba(30,20,10,.72);
   --gold:#8A5E18;--gold2:#6A4510;
-  --map-bg:#B8CCB0;--map-land:#7AAA62;--map-border:#5A8040;
-  --map-label:rgba(40,70,20,.7);
-  --popup-bg:#F0EBE0;
+  --map-label:#4A6A3A;
+  --popup-bg:#E8E3DA;
 }
-body.light .col-fill{fill:#7AAA62;stroke:#5A8040}
 body.light .hero::before{opacity:.4}
-body.light .card{background:#EDE7D9;border-color:rgba(0,0,0,.06)}
-body.light .day-num{background:#EDE7D9;border-color:rgba(100,70,10,.3)}
-body.light .sticky-filter,.body.light .welcome-banner{background:rgba(245,240,232,.96)}
-body.light .lc{background:#E4DDD0;border-color:rgba(0,0,0,.06)}
-body.light .nights-strip,.body.light .map-sec,.body.light .log-sec,.body.light .logistics{background:#EDE7D9}
+body.light .card{background:var(--d1);border-color:rgba(0,0,0,.07)}
+body.light .day-num{background:var(--d1);border-color:rgba(100,70,10,.3)}
+body.light .sticky-filter,body.light .welcome-banner{background:rgba(232,229,223,.96)}
+body.light .lc{background:var(--d2);border-color:rgba(0,0,0,.07)}
+body.light .nights-strip,body.light .map-sec,body.light .log-sec,body.light .logistics{background:var(--d1)}
 body.light .ws-up{background:rgba(100,70,10,.07);border-color:rgba(100,70,10,.2);color:rgba(100,70,10,.9)}
 body.light .ws-dn{background:rgba(40,80,120,.07);border-color:rgba(40,80,120,.2);color:#3A6090}
-body.light .tag{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1)}
+body.light .tag{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:var(--dim)}
+body.light .tr-badge{color:var(--gold);background:rgba(138,94,24,.06);border-color:rgba(138,94,24,.14)}
 body.light .tip{background:rgba(100,70,10,.05);border-color:rgba(100,70,10,.12);border-left-color:rgba(100,70,10,.4)}
 body.light footer{border-color:rgba(0,0,0,.08)}
-body.light .pcard{background:#EDE7D9;border-color:rgba(58,107,138,.2)}
-body.light .sel-bg,.body.light .sel-dots{opacity:.3}
-body.light #selector-screen{background:#F5F0E8}
-body.light .hd-cell{background:rgba(245,240,232,.9)}
-body.light .stats-bar,.body.light .overview{background:#EDE7D9}
+body.light .pcard{background:var(--d1);border-color:rgba(58,107,138,.2)}
+body.light .sel-bg,body.light .sel-dots{opacity:.3}
+body.light #selector-screen{background:var(--dark)}
+body.light .hd-cell{background:rgba(232,229,223,.9)}
+body.light .stats-bar,body.light .overview{background:var(--d1)}
 body.light .ph-1{background:rgba(58,107,138,.1)}
 body.light .ph-2{background:rgba(100,70,10,.08)}
 body.light .ph-3{background:rgba(60,100,56,.08)}
 body.light .ph-4{background:rgba(150,70,30,.08)}
-body.light .hero-title{color:#1A1410}
+body.light .hero-title{color:var(--text)}
 body.light .hero-title em{color:var(--gold)}
-body.light .sel-title{color:#1A1410}
+body.light .sel-title{color:var(--text)}
 body.light .sel-title em{color:var(--gold)}
+body.light .ph-1{color:#2A5A7A}
+body.light .ph-3{color:#2A6A2A}
+body.light .ph-4{color:#7A3A1A}
+body.light .cg-A{color:#2A5A7A}
+body.light .cg-B{color:#2A6A2A}
+body.light .cg-C{color:#6A2A5A}
+body.light .gbtn-A{color:#2A5A7A}
+body.light .gbtn-B{color:#2A6A2A}
+body.light .gbtn-C{color:#6A2A5A}
+body.light .gbtn-A.active{color:#1A3A5A;border-color:#2A5A7A}
+body.light .gbtn-B.active{color:#1A4A1A;border-color:#2A6A2A}
+body.light .gbtn-C.active{color:#4A1A3A;border-color:#6A2A5A}
+body.light .sf-A{color:#2A5A7A}
+body.light .sf-B{color:#2A6A2A}
+body.light .sf-C{color:#6A2A5A}
+body.light .sf-A.active{color:#1A3A5A;border-color:#2A5A7A}
+body.light .sf-B.active{color:#1A4A1A;border-color:#2A6A2A}
+body.light .sf-C.active{color:#4A1A3A;border-color:#6A2A5A}
+body.light .ws-dn{background:rgba(42,90,122,.07);border-color:rgba(42,90,122,.2);color:#2A5A7A}
+body.light .gnote{background:rgba(42,106,42,.07);border-color:rgba(42,106,42,.2);color:#2A6A2A}
+body.light .city-lbl{fill:var(--map-label)}
 
 /* ── THEME TOGGLE ── */
 .theme-toggle{
@@ -1347,6 +1305,9 @@ function closePopup(){ document.getElementById('map-popup').classList.add('hidde
 function toggleTheme(){
   const isLight = document.body.classList.toggle('light');
   document.querySelector('.theme-toggle').textContent = isLight ? '🌙' : '☀️';
+  if(activePerson && activePerson !== 'all'){
+    applyHeroColor(persons[activePerson]);
+  }
 }
 </script>
 
@@ -1354,6 +1315,7 @@ function toggleTheme(){
 <button class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">☀️</button>
 
 
+<footer>
   <div class="footer-sig">Creado con ♡ por José & Rosa</div>
   <small>Colombia · Octubre 2026</small>
 </footer>
